@@ -1,0 +1,82 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @model AASP.Models.Book
+}
+
+<!DOCTYPE html>
+
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Интернет-магазин "Буквоед"</title>
+</head>
+<body>
+    <div>
+        <h3>Интернет-магазин "Буквоед"</h3>
+        <table style="border: solid 2px; border-collapse: collapse;">
+            <tr>
+                <td><p>Название книги</p></td>
+                <td style="border: solid 1px; border-collapse: collapse;"><p>Автор</p></td>
+                <td><p>Цена</p></td>
+                <td style="border: solid 1px; border-collapse: collapse;"></td>
+                <td></td>
+            </tr>
+            @foreach (var b in ViewBag.Books)
+            {
+                <tr>
+                    <td style="border: solid 2px; border-collapse: collapse;"><p>@b.Name</p></td>
+                    <td style="border: solid 2px; border-collapse: collapse;"><p>@b.Author</p></td>
+                    <td style="border: solid 2px; border-collapse: collapse;"><p>@b.Price</p></td>
+                    <td style="border: solid 2px; border-collapse: collapse;"><p><a href="/Home/EditBook/@b.Id">Изменить</a></p></td>
+                    <td style="border: solid 2px; border-collapse: collapse;"><p><a href="/Home/Delete/@b.Id">Удалить</a></p></td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    @using (Html.BeginForm("Create", "Home", FormMethod.Post))
+    {
+        <div style="margin-top:10vh">
+            <table>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Name, "Название книги")
+                    </td>
+
+                    <td>
+                        @Html.EditorFor(model => model.Name)
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Author, "Автор")
+                    </td>
+
+                    <td>
+                        @Html.EditorFor(model => model.Author)
+                    </td>
+
+                    <td>
+                        <input style="margin-left:1vw;" type="submit" value="Добавить" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Price, "Цена")
+                    </td>
+
+                    <td>
+                        @Html.EditorFor(model => model.Price)
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+
+
+</body>
+</html>
